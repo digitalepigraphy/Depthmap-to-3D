@@ -1545,10 +1545,15 @@ self.onmessage = function(e){
       els.viewer.appendChild(renderer.domElement);
       const scene = new T.Scene();
       const camera = new T.PerspectiveCamera(35, 1, 0.0001, 1000);
-      scene.add(new T.HemisphereLight(0xffffff, 0x554433, 1.1));
-      const key = new T.DirectionalLight(0xffffff, 2.2);   // raking light from the upper left
-      key.position.set(-1, 1, 0.6);
-      scene.add(key);
+      scene.add(new T.AmbientLight(0xffffff, 0.9));
+      // Raking light from the upper left of the screen. It is attached to the camera,
+      // so its direction stays fixed on screen while the model turns underneath it.
+      const key = new T.DirectionalLight(0xffffff, 2.4);
+      key.position.set(-1, 1, 0.3);
+      key.target.position.set(0, 0, -1);
+      camera.add(key);
+      camera.add(key.target);
+      scene.add(camera);
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
       const material = new T.MeshStandardMaterial({ color: cssVar("--model") || "#d8cdb2", roughness: 0.85, metalness: 0, side: T.DoubleSide });
