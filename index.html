@@ -1606,7 +1606,7 @@ self.onmessage = function(e){
     v.lastR = R;
     els.viewerPlaceholder.hidden = true;
     els.viewerNote.hidden = false;
-    els.viewerInfo.textContent = k > 1 ? "1 of every " + k + " px" : "full resolution";
+    els.viewerInfo.textContent = "Depth range: " + num(els.depth);
   }
 
   /* ---------------- export ---------------- */
